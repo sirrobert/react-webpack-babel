@@ -1,10 +1,11 @@
 "use strict";
-const webpack = require('webpack');
-const path = require('path');
-const loadersConf = require('./webpack.loaders');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack            = require('webpack');
+const path               = require('path');
+const loadersConf        = require('./webpack.loaders');
+const HtmlWebpackPlugin  = require('html-webpack-plugin');
+const DashboardPlugin    = require('webpack-dashboard/plugin');
+const ExtractTextPlugin  = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8888";
@@ -24,7 +25,7 @@ module.exports = {
   devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
   output: {
     publicPath: '/',
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   module: {
@@ -54,6 +55,7 @@ module.exports = {
     host: HOST
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
